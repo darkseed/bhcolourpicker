@@ -1,0 +1,32 @@
+Git clone of the original project located at http://code.google.com/p/bhcolourpicker/ by Bunnyhero
+
+How to use BHColourPicker
+Installation
+Download the most recent source.
+Unzip the archive. You will find two directories inside: BHColourPicker and ColourPickerHarness_Sample. ColourPickerHarness_Sample is just an example project; you don't need it.
+Drag the BHColourPicker folder into your project.
+Your code
+To show the colour picker, use code something like the following:
+
+    //  since it has 'new' in the method name, you own it...
+    BHColourPickerController *vc = [BHColourPickerController newColourPickerController];
+    vc.delegate = self;                    // the delegate
+    vc.colour = self.view.backgroundColor; // the initial colour
+    vc.titleText = @"Some kind of title";  // title to display
+    [self presentModalViewController:vc animated:YES];
+    [vc release];   //  ...and must release it
+You must implement the BHColourPickerControllerDelegate protocol in one of your objects. Implement the following two methods (with examples):
+
+- (void)colourPickerControllerDidCancel:(BHColourPickerController *)controller
+{
+    // the user just cancelled it; put the picker away
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)colourPickerController:(BHColourPickerController *)controller didFinishPickingColour:(UIColor *)colour
+{
+    // the user confirmed a colour; do something with it
+    self.view.backgroundColor = colour;
+    // and put the picker away
+    [self dismissModalViewControllerAnimated:YES];
+}
